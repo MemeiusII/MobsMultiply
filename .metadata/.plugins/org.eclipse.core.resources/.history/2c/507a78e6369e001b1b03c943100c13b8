@@ -1,0 +1,24 @@
+package me.EthanBilbrey.MobsMultiplyOnSight;
+
+import java.util.List;
+
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+
+public class PlayerTracker 
+{
+	private Player p;
+	private int taskId;
+	
+	public PlayerTracker(Player p) 
+	{
+		this.p = p;
+	}
+	private void startTracking() 
+	{
+		taskId = Bukkit.getScheduler().scheduleSyncRepeatingTask(Main.getPlugin(Main.class), () -> {
+			List<Entity> entities = p.getNearbyEntities(10, 10, 10);
+		}, 0L, 10L);
+	}
+}

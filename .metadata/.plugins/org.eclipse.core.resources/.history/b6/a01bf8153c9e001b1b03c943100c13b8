@@ -1,0 +1,41 @@
+package me.EthanBilbrey.MobsMultiplyOnSight;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.plugin.java.JavaPlugin;
+
+public class Main extends JavaPlugin implements Listener
+{
+	public List<PlayerTracker> list;
+	
+	@Override
+	public void onEnable() 
+	{
+		list = new ArrayList<PlayerTracker>();
+		getServer().getPluginManager().registerEvents(this, this);
+	}
+	@EventHandler
+	public void onPlayerJoin(PlayerJoinEvent e) 
+	{
+		PlayerTracker pt = new PlayerTracker(e.getPlayer());
+		list.add(pt);
+		e.getPlayer().sendMessage("new instance created");
+	}
+	@EventHandler
+	public void onPlayerQuit(PlayerQuitEvent e) 
+	{
+		for(PlayerTracker pt : list) 
+		{
+			if(e.getPlayer().equals(pt.getPlayer())) 
+			{
+				pt.cancelTask();
+				list.remove(pt);
+			}
+		}
+	}
+}

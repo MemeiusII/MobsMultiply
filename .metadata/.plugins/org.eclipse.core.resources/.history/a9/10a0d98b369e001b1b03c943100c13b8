@@ -1,0 +1,13 @@
+package me.EthanBilbrey.MobsMultiplyOnSight;
+
+import org.bukkit.entity.Player;
+
+public class PlayerTracker 
+{
+	private Player p;
+	
+	public PlayerTracker(Player p) 
+	{
+		this.p = p;
+	}
+}
